@@ -1,0 +1,18 @@
+{{/* Trigger Type- Contains
+     Trigger- vite_(or the prefix of what blockchain you are using)
+*/}}
+
+{{$faucetChannel := 904151975283785828}}{{/*Channel ID of Faucet Channel*/}}
+{{$roleID := 904647820936626206}}{{/*Role that should be given to person that claimed from faucet}}
+{{$delay := 86400}}{{/*time after which the role would be taken away from them(in seconds)*/}}
+
+{{if eq .Channel.ID $faucetChennel}}
+{{ addRoleID $roleID}}
+{{removeRoleID $roleID $delay}}
+ 
+{{else}}
+{{deleteTrigger 1}}
+{{$x := sendMessageRetID nil (print .User.Mention " Please don't post your address here, post it in <#904151975283785828> :)")}}
+{{deleteMessage nil $x 5}}
+ 
+{{end}}
